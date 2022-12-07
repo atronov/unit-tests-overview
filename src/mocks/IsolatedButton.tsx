@@ -1,10 +1,10 @@
-import * as React from 'react';
+import {MouseEvent} from 'react';
 
 type Props = {
     onClick: () => void,
 };
 export const IsolatedButton = function (props: Props) {
-    const handleClick = (e: React.MouseEvent) => {
+    const handleClick = (e: MouseEvent) => {
         e.stopPropagation();
         e.preventDefault();
         props.onClick();
