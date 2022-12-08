@@ -42,3 +42,21 @@ describe('debounce with fake timers', () => {
         expect(cb).toBeCalledTimes(1);
     });
 });
+
+describe('debounce with promisified wait', () => {
+
+    // нам не нужны реальны таймауты, будем перемещаться на "машине времени"
+    beforeEach(() => {
+        jest.useFakeTimers();
+    });
+
+    it('test fails with timeout cause of Promises', async () => {
+        const cb = jest.fn();
+        const timeout = 3000;
+        const f = debounce(cb, timeout);
+        f();
+        // oops, test fails with timeout here
+        await wait(timeout - 100);
+        expect(cb).toBeCalledTimes(1);
+    });
+});
