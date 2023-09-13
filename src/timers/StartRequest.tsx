@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {wait} from './wait';
+import React from 'react';
 
 export const StartRequest = ({request}: {request: () => Promise<string>}) => {
     const [result, setResult] = useState<string | undefined>(undefined);

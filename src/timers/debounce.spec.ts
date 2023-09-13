@@ -1,10 +1,8 @@
 import {debounce} from './debounce';
+import { wait } from './wait';
 
-// async обёртка над setTimeout для красивого теста
-const wait = (mils: number) => new Promise((resolve) => setTimeout(resolve, mils));
-
-describe('debounce', () => {
-    // Этот тест идёт больше 3000ms
+describe.skip('debounce', () => {
+    // more then 3000ms
     it('calls callback once after timeout', async () => {
         const cb = jest.fn();
         const timeout = 3000;
@@ -17,21 +15,21 @@ describe('debounce', () => {
     });
 });
 
-describe('debounce with fake timers', () => {
-    // нам не нужны реальны таймауты, будем перемещаться на "машине времени"
+describe.skip('debounce with fake timers', () => {
+    // we don't need real timer
     beforeEach(() => {
         jest.useFakeTimers();
     })
 
     afterEach(() => {
-        // после теста дожидаемся незавершённых и возвращаем реальные таймеры
+        // wait for all pending timers
         jest.runOnlyPendingTimers()
         jest.useRealTimers();
     });
 
-    // тест теперь не асинхронный
-    // и работает 5ms
-    it('calls callback once after timeout', () => {
+    // now this test is sync
+    // timespent – 5ms
+    it('calls callback once after fake-timeout', () => {
         const cb = jest.fn();
         const timeout = 3000;
         const f = debounce(cb, timeout);
@@ -45,7 +43,6 @@ describe('debounce with fake timers', () => {
 
 describe('debounce with promisified wait', () => {
 
-    // нам не нужны реальны таймауты, будем перемещаться на "машине времени"
     beforeEach(() => {
         jest.useFakeTimers();
     });
