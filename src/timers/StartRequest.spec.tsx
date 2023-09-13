@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import {render, screen, fireEvent, act, waitFor} from '@testing-library/react';
 import {StartRequest} from './StartRequest';
 import {wait} from './wait';
+import React from 'react';
 
 describe('StartRequest', () => {
     jest.useFakeTimers();
